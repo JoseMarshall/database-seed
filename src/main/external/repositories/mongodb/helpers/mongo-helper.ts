@@ -20,9 +20,15 @@ export const MongoHelper = {
   getCollection(name: string): Collection | undefined {
     return client?.connection.collection(name);
   },
-  clearCollection(name: string): void {
-    client?.connection.collection(name).deleteMany({});
+
+  async clearCollection(name: string) {
+    await client?.connection.collection(name).deleteMany({});
   },
+
+  async dropDatabase() {
+    await client?.connection.dropDatabase();
+  },
+
   getModel<T>(name: string, schema: Schema<T>): Model<T> {
     return client?.models[name] ?? model<T, Model<T>>(name, schema, name);
   },

@@ -11,26 +11,16 @@ import {
   FileUploaded,
   Genders,
   IdentificationDocument,
-  ListConfiguration,
   Member,
   Money,
-  Notification,
-  NotificationTypes,
   Partner,
-  Payment,
   PersonalInformation,
   Plafond,
-  PlafondHistory,
   Plan,
   PlanCategories,
   PlanCategory,
-  PlanTypes as __PlanTypesEnum,
-  Process,
-  ProcessesStatus as __ProcessesStatusEnum,
+  PlanTypes,
   TotalCountCollection,
-  User,
-  UserRoles,
-  UsersNotification,
 } from '../../../../../constants';
 
 export interface TimeStamps {
@@ -38,39 +28,7 @@ export interface TimeStamps {
   updatedAt: Date;
 }
 
-export type PlanTypes = __PlanTypesEnum.MetCareCliente | __PlanTypesEnum.MetCareSaude;
-export type UserRole =
-  | UserRoles.Admin
-  | UserRoles.Supervisor
-  | UserRoles.Operator
-  | UserRoles.Partner;
-export type NotificationType = NotificationTypes.Create | NotificationTypes.Update;
 export type Gender = Genders.Male | Genders.Female | Genders.Other;
-export type ProcessesStatus =
-  | __ProcessesStatusEnum.Accepted
-  | __ProcessesStatusEnum.Rejected
-  | __ProcessesStatusEnum.Pending;
-
-export interface UserDocument extends Document, TimeStamps {
-  [User.Role]: UserRole;
-  [User.Name]: string;
-  [User.Email]: string;
-  [User.Password]: string;
-  [User.Phone]: string;
-  [User.Gender]: Gender;
-}
-
-export interface NotificationDocument extends Document, TimeStamps {
-  [Notification.Type]: NotificationType;
-  [Notification.Process]: string;
-}
-
-export interface UserNotificationDocument extends Document, TimeStamps {
-  [UsersNotification.UserEmail]: string;
-  [UsersNotification.Notification]: string;
-  [UsersNotification.IsRead]: boolean;
-}
-
 export interface MoneyObject {
   [Money.Value]: number | bigint | string;
   [Money.Currency]: string;
@@ -151,7 +109,7 @@ export interface PlanDocument extends Document, TimeStamps {
   [Plan.Members]: string[];
   [Plan.TotalMembers]: number;
   [Plan.Cost]: MoneyObject;
-  [Plan.PlanType]: PlanTypes;
+  [Plan.PlanType]: `${PlanTypes}`;
 }
 
 export interface ClientDocument extends Document, TimeStamps {
@@ -200,13 +158,6 @@ export interface MemberDocument extends Document, TimeStamps {
   [Member.TotalRejectedProcesses]: number;
 }
 
-export interface PlafondHistoryDocument extends Document, TimeStamps {
-  [PlafondHistory.Service]: PlanCategoryDocument;
-  [PlafondHistory.InitialValue]: MoneyObject;
-  [PlafondHistory.CurrentValue]: MoneyObject;
-  [PlafondHistory.Member]: MemberDocument;
-}
-
 export interface DependentDocument extends Document, TimeStamps {
   [Dependent.PersonalInformation]: PersonalInformationDocument;
   [Dependent.ContactInformation]: ContactInformationDocument;
@@ -214,36 +165,4 @@ export interface DependentDocument extends Document, TimeStamps {
   [Dependent.ProfileImage]: string;
   [Dependent.Member]: MemberDocument;
   [Dependent.KinshipDegree]: string;
-}
-export interface ServicePaid {
-  [Plafond.Service]: string;
-  [Payment.AmountPaid]: MoneyObject;
-}
-
-export interface ProcessDocument extends Document, TimeStamps {
-  [Process.Member]: MemberDocument;
-  [Process.CreatedBy]: UserDocument;
-  [Process.UpdatedBy]: UserDocument;
-  [Process.Services]: ServicePaid[];
-  [Process.Cost]: MoneyObject;
-  [Process.Type]: string;
-  [Process.Files]: FileUploadedDocument[];
-  [Process.Status]: {
-    reason?: string;
-    name: ProcessesStatus;
-    previousName: ProcessesStatus;
-  };
-}
-
-export interface PaymentDocument extends Document, TimeStamps {
-  [Payment.Process]: string;
-  [Payment.TotalPaid]: MoneyObject;
-  [Payment.ServicesPaid]: ServicePaid[];
-}
-
-export interface ListConfigurationDocument extends Document, TimeStamps {
-  [ListConfiguration.Entity]: string;
-  [ListConfiguration.DisabledColumns]: string[][];
-  [ListConfiguration.EnabledColumns]: string[][];
-  [ListConfiguration.UserEmail]: string;
 }

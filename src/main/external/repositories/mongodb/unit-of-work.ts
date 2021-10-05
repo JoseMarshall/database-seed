@@ -6,18 +6,13 @@ import {
   DependentsModel,
   MemberModel,
   PartnerModel,
-  PlafondHistoryModel,
   PlanCategoryModel,
   PlanModel,
-  UserModel,
 } from './models';
 
 async function UnitOfWork() {
   const uow: IUnitOfWork = {
     transaction: null,
-    makeUserRepository() {
-      return BaseRepository(UserModel, this.transaction);
-    },
     makeClientRepository() {
       return BaseRepository(ClientModel, this.transaction);
     },
@@ -29,9 +24,6 @@ async function UnitOfWork() {
     },
     makePartnerRepository() {
       return BaseRepository(PartnerModel, this.transaction);
-    },
-    makePlafondHistoryRepository() {
-      return BaseRepository(PlafondHistoryModel, this.transaction);
     },
     makePlanCategoryRepository() {
       return BaseRepository(PlanCategoryModel, this.transaction);

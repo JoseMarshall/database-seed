@@ -4,10 +4,8 @@ import {
   IDependent,
   IMember,
   IPartner,
-  IPlafondHistory,
   IPlan,
   IPlanCategory,
-  IUser,
 } from '../../../dto/dto.types';
 
 export interface GetAllEntitiesData<T> {
@@ -35,10 +33,8 @@ export interface IUnitOfWork {
   makeDependentRepository: () => IRepository<IDependent>;
   makeMemberRepository: () => IRepository<IMember>;
   makePartnerRepository: () => IRepository<IPartner>;
-  makePlafondHistoryRepository: () => IRepository<IPlafondHistory>;
   makePlanCategoryRepository: () => IRepository<IPlanCategory>;
   makePlanRepository: () => IRepository<IPlan>;
-  makeUserRepository: () => IRepository<IUser>;
   commitChanges(): Promise<void>;
   rollback(): Promise<void>;
   startTransaction(): Promise<void>;
