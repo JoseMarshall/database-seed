@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "importHelpers": true,
+    "strict": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitAny": true,
+    "baseUrl": "./src",
+    "rootDir": ".",
+    "outDir": "built",
+    "noEmit": true,
+    "paths": {
+      "@contants/*": ["constants/*"],
+      "@dto/*": ["dto/*"],
+      "@input-files/*": ["input-files/*"],
+      "@main/*": ["main/*"],
+      "@external/*": ["main/external/*"],
+      "@report/*": ["report/*"],
+      "@seeders/*": ["seeders/*"],
+      "@utils/*": ["utils/*"],
+      "@validators/*": ["validators/*"]
+    }
+  },
+  "exclude": ["node_modules", ".husky", ".vscode", "**/*.test.ts", "**/*.spec.ts"],
+  "include": ["**/*.ts", "**/*.js"]
+}
