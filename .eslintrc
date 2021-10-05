@@ -1,0 +1,73 @@
+{
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"],
+        "moduleDirectory": ["node_modules"]
+      }
+    },
+    "alias": {
+      "map": [
+        ["@constants", "./src/constants"],
+        ["@dto", "./src/dto"],
+        ["@input-files", "./src/input-files"],
+        ["@main", "./src/main"],
+        ["@external", "./src/main/external"],
+        ["@report", "./src/report"],
+        ["@seeders", "./src/seeders"],
+        ["@utils", "./src/utils"],
+        ["@validators", "./src/validators"]
+      ],
+      "extensions": [".js", ".ts"]
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+    "plugin:import/typescript"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true,
+    "node": true },
+  "plugins": [
+    "jsx-a11y",
+    "prettier",
+    "simple-import-sort",
+    "import"
+  ],
+  "rules": {
+    "arrow-parens": "off",
+    "import/extensions": "off",
+    "semi": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".ts"] }],
+    "prettier/prettier": [
+      "error", {
+        "semi": true,
+        "endOfLine": "auto"
+      }
+    ],
+    "jsx-a11y/aria-role": [ 2, {
+      "ignoreNonDOM": true
+    }],
+    "simple-import-sort/imports": "error",
+    "sort-imports": "off",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/state-in-constructor": "off",
+    "no-param-reassign": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars-experimental": "error",
+    "no-unused-vars": "off"
+  }
+}
