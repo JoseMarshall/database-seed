@@ -1,4 +1,4 @@
-export * from './create-entity';
+export * from './create-entities';
 export * from './get-all-entities';
 export * from './delete-one-entity';
 export * from './update-entity';

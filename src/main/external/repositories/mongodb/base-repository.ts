@@ -2,7 +2,7 @@ import { ClientSession, Document, Model } from 'mongoose';
 
 import { IRepository } from '../repository.types';
 import {
-  makeCreateEntity,
+  makeCreateEntities,
   makeDeleteOneEntity,
   makeFindOneEntity,
   makeUpdateOneEntity,
@@ -13,8 +13,8 @@ function BaseRepository<D extends Document, T>(
   transaction: ClientSession
 ): IRepository<T> {
   const repository: IRepository<T> = {
-    async add(entity: T) {
-      return makeCreateEntity<D, T>({ model, transaction })(entity);
+    async add(entities: T[]) {
+      return makeCreateEntities<D, T>({ model, transaction })(entities);
     },
     async findOne(filter, options) {
       return makeFindOneEntity<D, T>({ model, options, transaction })(filter);

@@ -21,6 +21,8 @@ import {
   PlanCategory,
   PlanTypes,
   TotalCountCollection,
+  User,
+  UserRoles,
 } from '../../../../../constants';
 
 export interface TimeStamps {
@@ -165,4 +167,13 @@ export interface DependentDocument extends Document, TimeStamps {
   [Dependent.ProfileImage]: string;
   [Dependent.Member]: MemberDocument;
   [Dependent.KinshipDegree]: string;
+}
+
+export interface UserDocument extends Document, TimeStamps {
+  [User.Role]: `${UserRoles}`;
+  [User.Name]: string;
+  [User.Email]: string;
+  [User.Password]: string;
+  [User.Phone]: string;
+  [User.Gender]: Gender;
 }

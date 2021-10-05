@@ -8,11 +8,15 @@ import {
   PartnerModel,
   PlanCategoryModel,
   PlanModel,
+  UserModel,
 } from './models';
 
 async function UnitOfWork() {
   const uow: IUnitOfWork = {
     transaction: null,
+    makeUserRepository() {
+      return BaseRepository(UserModel, this.transaction);
+    },
     makeClientRepository() {
       return BaseRepository(ClientModel, this.transaction);
     },

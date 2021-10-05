@@ -9,7 +9,7 @@ export default (
   new Schema<any, any>(
     {
       [Common.IsDeleted]: { type: Boolean, default: false },
-      [Common.RegistrationNumber]: { type: Number, required: false, unique: true, min: 1000 },
+      [Common.RegistrationNumber]: { type: Number, required: false, unique: false, min: 1000 },
       ...schemaDefinition,
     },
     { timestamps: true, ...additionalDefinition }
