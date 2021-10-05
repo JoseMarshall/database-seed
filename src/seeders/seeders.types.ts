@@ -10,17 +10,23 @@ type IReaderOptions =
       schema?: never;
     };
 
-interface IReaderReturn {
-  rows: any[];
-  errors: any[];
+interface IReaderErrors {
+  row: string | number;
+  column: string | number;
+  error: string;
+  value: any;
+}
+interface IReaderReturn<T> {
+  rows: T[];
+  errors: IReaderErrors[];
 }
 
-export type IReader = (
+export type IReader<T> = (
   file: string | ReadStream,
   options?: IReaderOptions
-) => Promise<IReaderReturn>;
+) => Promise<IReaderReturn<T>>;
 
-export interface ISeeder {
-  reader: IReader;
+export interface ISeeder<T> {
+  reader: IReader<T>;
   path: string;
 }

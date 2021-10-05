@@ -1,12 +1,12 @@
 import path from 'path';
 
-import { planCategorySeed } from './plan-category-seed';
+import { clientSeed } from './client-seed';
 
 const readXlsxFile = require('read-excel-file/node');
 
 export default async () => {
-  await planCategorySeed({
+  await clientSeed({
     reader: readXlsxFile,
-    path: path.resolve('src/input-files/plan-category.xlsx'),
+    path: path.resolve('src/input-files/clients.xlsx'),
   });
 };
