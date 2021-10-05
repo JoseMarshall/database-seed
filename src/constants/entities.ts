@@ -1,3 +1,19 @@
+export enum User {
+  Role = 'role',
+  Name = 'name',
+  Email = 'email',
+  Phone = 'phone',
+  Gender = 'gender',
+  Password = 'password',
+}
+
+export enum UserRoles {
+  Admin = 'admin',
+  Supervisor = 'supervisor',
+  Operator = 'operator',
+  Partner = 'partner',
+}
+
 export enum Partner {
   Name = 'name',
   Nif = 'nif',
@@ -97,9 +113,11 @@ export enum Plan {
 export enum CollectionNames {
   Members = 'members',
   Partners = 'partners',
+  Users = 'users',
   Clients = 'clients',
   Plans = 'plans',
   Dependents = 'dependents',
+  Processes = 'processes',
   TotalCountCollections = 'totalCountCollections',
   PlanCategories = 'planCategories',
 }

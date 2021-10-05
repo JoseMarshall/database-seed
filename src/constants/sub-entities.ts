@@ -98,6 +98,11 @@ export enum PlanTypes {
   MetCareCliente = 'MetCare-Cliente',
 }
 
+export enum ResetPassword {
+  Token = 'token',
+  ExpiresIn = 'expiresIn',
+}
+
 export enum Plafond {
   Service = 'service',
   InitialValue = 'initialValue',
