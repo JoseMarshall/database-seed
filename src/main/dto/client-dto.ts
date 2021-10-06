@@ -15,8 +15,14 @@ const clientDTO: IDataTransferObject = {
     },
     'Category*': Client.Category,
   },
-  mapper: data => ({
+  mapper: (data: any) => ({
     ...data,
+    [Client.ContactInformation]: {
+      ...data[Client.ContactInformation],
+      [ContactInformation.Phone]:
+        data[Client.ContactInformation][ContactInformation.Phone].toString(),
+    },
+    [Client.Nif]: data[Client.Nif].toString(),
     [Client.Agreement]: {},
     [Client.Plafond]: {
       [Money.Value]: 0,

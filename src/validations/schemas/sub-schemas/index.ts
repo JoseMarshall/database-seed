@@ -16,7 +16,9 @@ export const personalInformationSchema = {
   [PersonalInformation.Gender]: joi.valid(...Object.values(Genders)),
   [PersonalInformation.Nationality]: joi.string(),
   [PersonalInformation.IdentificationDocument]: joi.object({
-    [IdentificationDocument.Number]: joi.string().required(),
+    [IdentificationDocument.Number]: joi
+      .alternatives()
+      .try(joi.string().required(), joi.number().required()),
     [IdentificationDocument.Name]: joi.string().required(),
     [IdentificationDocument.DateOfExpiration]: joi.date().required(),
   }),
@@ -29,7 +31,7 @@ export const bankAccountInformationSchema = {
 
 export const contactInformationSchema = {
   [ContactInformation.Email]: joi.string().email(),
-  [ContactInformation.Phone]: joi.string(),
+  [ContactInformation.Phone]: joi.alternatives().try(joi.string(), joi.number()),
 };
 
 const floatNumberRegex = /^-{0,1}\d+(\.\d+|\d*)$/;

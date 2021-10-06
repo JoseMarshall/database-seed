@@ -35,9 +35,9 @@ const schema = joi
     [Member.BankAccountInformation]: joi.object(bankAccountInformationSchema),
     [Member.Client]: joi.string().email().required(),
     [Member.Plan]: joi.string(),
-    [Member.EmployeeNumber]: joi.string(),
+    [Member.EmployeeNumber]: joi.alternatives().try(joi.string(), joi.number()),
   })
   .required()
-  .unknown(false);
+  .unknown(true);
 
 export default joiValidator<IMember>(schema);

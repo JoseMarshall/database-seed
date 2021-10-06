@@ -9,8 +9,13 @@ const schema = joi
   .object({
     [Partner.Name]: joi.string().required(),
     [Partner.Nif]: joi.string().required(),
-    [User.Email]: joi.string().email().required(),
-    [User.Password]: joi.string().required(),
+    [Partner.UserAccount]: joi
+      .object({
+        [User.Email]: joi.string().email().required(),
+        [User.Password]: joi.string().required(),
+      })
+      .required()
+      .unknown(true),
     [Partner.ContactInformation]: joi
       .object({
         [ContactInformation.Email]: joi.array().items(joi.string().email()).min(1).required(),
@@ -25,6 +30,6 @@ const schema = joi
       .required(),
   })
   .required()
-  .unknown(false);
+  .unknown(true);
 
 export default joiValidator<IPartner>(schema);

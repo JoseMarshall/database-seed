@@ -33,25 +33,27 @@ const partnerDTO: IDataTransferObject = {
     'Partner Category*': Partner.Category,
   },
 
-  mapper: data => {
-    const emails = (data as any)[Partner.ContactInformation][ContactInformation.Email]
+  mapper: (data: any) => {
+    const emails = data[Partner.ContactInformation][ContactInformation.Email]
       .split(';')
       .map((email: string) => email.trim());
-    const phoneNumbers = (data as any)[Partner.ContactInformation][ContactInformation.Phone]
+    const phoneNumbers = data[Partner.ContactInformation][ContactInformation.Phone]
       .split(';')
       .map((phone: string) => phone.trim());
     return {
       ...data,
+      [Partner.Nif]: data[Partner.Nif].toString(),
       [Partner.ContactInformation]: {
         [ContactInformation.Phone]: phoneNumbers,
         [ContactInformation.Email]: emails,
       },
       [Partner.UserAccount]: {
-        ...(data as any)[Partner.UserAccount],
-        [User.Name]: (data as any)[Partner.Name],
+        ...data[Partner.UserAccount],
+        [User.Name]: data[Partner.Name],
         [User.Phone]: phoneNumbers[0],
         [User.Gender]: Genders.Other,
         [User.Role]: UserRoles.Partner,
+        [User.Password]: data[Partner.UserAccount][User.Password].toString(),
       },
     };
   },

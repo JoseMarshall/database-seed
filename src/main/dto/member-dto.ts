@@ -46,8 +46,23 @@ const memberDTO: IDataTransferObject = {
     'Is Client*': Member.IsClient,
   },
 
-  mapper: data => ({
+  mapper: (data: any) => ({
     ...data,
+    [Member.PersonalInformation]: {
+      ...data[Member.PersonalInformation],
+      [PersonalInformation.IdentificationDocument]: {
+        ...data[Member.PersonalInformation][PersonalInformation.IdentificationDocument],
+        [IdentificationDocument.Number]:
+          data[Member.PersonalInformation][PersonalInformation.IdentificationDocument][
+            IdentificationDocument.Number
+          ].toString(),
+      },
+    },
+    [Member.ContactInformation]: {
+      ...data[Member.ContactInformation],
+      [ContactInformation.Phone]:
+        data[Member.ContactInformation][ContactInformation.Phone].toString(),
+    },
     [Member.IsClient]: (data as any)[Member.IsClient] === 'true',
     [Member.TotalPlafond]: {
       [Money.Value]: 0,
