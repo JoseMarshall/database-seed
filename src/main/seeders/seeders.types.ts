@@ -1,4 +1,4 @@
-import { ReadStream } from 'fs';
+import { ReadStream, WriteStream } from 'fs';
 
 type IReaderOptions =
   | {
@@ -29,4 +29,6 @@ export type IReader<T> = (
 export interface ISeeder<T> {
   reader: IReader<T>;
   path: string;
+  validator: (payload: T) => Promise<T>;
+  report: WriteStream;
 }

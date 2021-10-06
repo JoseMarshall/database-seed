@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import fs from 'fs';
 import { Types as MongooseTypes } from 'mongoose';
 
@@ -73,7 +74,7 @@ function makeCreateMember({ planRepo, clientRepo, memberRepo }: CreateMemberDepe
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export async function memberSeed({ reader, path }: ISeeder<IMember>) {
+export async function memberSeed({ reader, path, report, validator }: ISeeder<IMember>) {
   const unitOfWork = await uow();
   try {
     const { rows } = await reader(fs.createReadStream(path), {
@@ -82,7 +83,7 @@ export async function memberSeed({ reader, path }: ISeeder<IMember>) {
 
     if (rows.length) {
       const members = rows.map(MemberDTO.mapper);
-
+      await Promise.all(members.flatMap(validator));
       const planRepo = unitOfWork.makePlanRepository();
       const memberRepo = unitOfWork.makeMemberRepository();
       const clientRepo = unitOfWork.makeClientRepository();
@@ -94,5 +95,11 @@ export async function memberSeed({ reader, path }: ISeeder<IMember>) {
     }
   } catch (error) {
     logger.error(error);
+    report.write(
+      `[${new Date().toISOString()}] ERROR (MEMBER_SEED): ${
+        error?.message
+      }  Input: ${JSON.stringify(error?._original)}\n`
+    );
+    report.end();
   }
 }

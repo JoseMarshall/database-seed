@@ -1,10 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 import MoneyFactory, { Round } from 'bigint-money';
 import fs from 'fs';
 
 import { Currencies, Money, Plan, PlanCategories, PlanCategory } from '../../../constants';
+import { logger } from '../../../utils';
 import { PlanDTO } from '../../dto';
 import { IPlan, IPlanCategory } from '../../dto/dto.types';
-import { logger } from '../../../utils';
 import uow from '../../external/repositories/mongodb/unit-of-work';
 import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
@@ -56,7 +57,7 @@ export function makeCreatePlan({ planRepo, planCategoryRepo }: CreatePlanDepende
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export async function planSeed({ reader, path }: ISeeder<IPlan>) {
+export async function planSeed({ reader, path, validator, report }: ISeeder<IPlan>) {
   const unitOfWork = await uow();
   try {
     const { rows } = await reader(fs.createReadStream(path), {
@@ -67,6 +68,7 @@ export async function planSeed({ reader, path }: ISeeder<IPlan>) {
       const plans = rows.reduce(PlanDTO.reducer, []);
       const planRepo = unitOfWork.makePlanRepository();
       const planCategoryRepo = unitOfWork.makePlanCategoryRepository();
+      await Promise.all(plans.flatMap(validator));
 
       const result = await Promise.all(
         plans.flatMap(makeCreatePlan({ planRepo, planCategoryRepo }))
@@ -76,5 +78,11 @@ export async function planSeed({ reader, path }: ISeeder<IPlan>) {
     }
   } catch (error) {
     logger.error(error);
+    report.write(
+      `[${new Date().toISOString()}] ERROR (PLAN_SEED): ${error?.message}  Input: ${JSON.stringify(
+        error?._original
+      )}\n`
+    );
+    report.end();
   }
 }

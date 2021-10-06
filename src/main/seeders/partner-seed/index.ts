@@ -1,10 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 import * as bcrypt from 'bcrypt';
 import fs from 'fs';
 
 import { Partner, User } from '../../../constants';
+import { logger } from '../../../utils';
 import { PartnerDTO } from '../../dto';
 import { IPartner, IUser } from '../../dto/dto.types';
-import { logger } from '../../../utils';
 import uow from '../../external/repositories/mongodb/unit-of-work';
 import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
@@ -36,7 +37,7 @@ function makeCreatePartner({ partnerRepo, userRepo }: CreatePartnerDependencies)
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export async function partnerSeed({ reader, path }: ISeeder<IPartner>) {
+export async function partnerSeed({ reader, path, validator, report }: ISeeder<IPartner>) {
   const unitOfWork = await uow();
   try {
     const { rows } = await reader(fs.createReadStream(path), {
@@ -45,7 +46,7 @@ export async function partnerSeed({ reader, path }: ISeeder<IPartner>) {
 
     if (rows.length) {
       const partners = rows.map(PartnerDTO.mapper);
-
+      await Promise.all(partners.flatMap(validator));
       const partnerRepo = unitOfWork.makePartnerRepository();
       const userRepo = unitOfWork.makeUserRepository();
 
@@ -56,5 +57,11 @@ export async function partnerSeed({ reader, path }: ISeeder<IPartner>) {
     }
   } catch (error) {
     logger.error(error);
+    report.write(
+      `[${new Date().toISOString()}] ERROR (PARTNER_SEED): ${
+        error?.message
+      }  Input: ${JSON.stringify(error?._original)}\n`
+    );
+    report.end();
   }
 }

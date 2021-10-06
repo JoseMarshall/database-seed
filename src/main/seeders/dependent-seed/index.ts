@@ -1,9 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import fs from 'fs';
 
 import { Common, ContactInformation, Dependent, Member } from '../../../constants';
+import { logger } from '../../../utils';
 import { DependentDTO } from '../../dto';
 import { IDependent, IMember } from '../../dto/dto.types';
-import { logger } from '../../../utils';
 import uow from '../../external/repositories/mongodb/unit-of-work';
 import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
@@ -34,7 +35,7 @@ function makeCreateDependent({ dependentRepo, memberRepo }: CreateDependentDepen
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export async function dependentSeed({ reader, path }: ISeeder<IDependent>) {
+export async function dependentSeed({ reader, path, validator, report }: ISeeder<IDependent>) {
   const unitOfWork = await uow();
   try {
     const { rows } = await reader(fs.createReadStream(path), {
@@ -44,7 +45,7 @@ export async function dependentSeed({ reader, path }: ISeeder<IDependent>) {
     if (rows.length) {
       const memberRepo = unitOfWork.makeMemberRepository();
       const dependentRepo = unitOfWork.makeDependentRepository();
-
+      await Promise.all(rows.flatMap(validator));
       const result = await Promise.all(
         rows.flatMap(makeCreateDependent({ dependentRepo, memberRepo }))
       );
@@ -52,5 +53,11 @@ export async function dependentSeed({ reader, path }: ISeeder<IDependent>) {
     }
   } catch (error) {
     logger.error(error);
+    report.write(
+      `[${new Date().toISOString()}] ERROR (DEPENDENT_SEED): ${
+        error?.message
+      }  Input: ${JSON.stringify(error?._original)}\n`
+    );
+    report.end();
   }
 }
