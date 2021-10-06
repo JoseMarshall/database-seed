@@ -23,8 +23,15 @@ const start = async () => {
     });
 
     await mongoInit();
-
     await startSeeding();
+
+    logger.info(
+      {
+        Completed:
+          'Thanks for use database-seed-met-care, in case of fails check the reports for more details',
+      },
+      'Completed!!!'
+    );
   } catch (error) {
     logger.error(error);
   }

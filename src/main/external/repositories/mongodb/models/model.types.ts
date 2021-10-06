@@ -137,7 +137,7 @@ export interface TotalCollectionsDocument extends Document, TimeStamps {
 }
 
 export interface PlafondDocument {
-  [Plafond.Service]: PlanCategoryDocument;
+  [Plafond.Service]: string;
   [Plafond.CurrentValue]: MoneyObject;
   [Plafond.CaptiveValue]: MoneyObject;
 }

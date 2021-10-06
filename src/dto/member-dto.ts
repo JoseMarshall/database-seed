@@ -27,23 +27,23 @@ const memberDTO: IDataTransferObject = {
         },
         Nationality: PersonalInformation.Nationality,
       },
-      [Member.ContactInformation]: {
-        [Member.ContactInformation]: {
-          Phone: ContactInformation.Phone,
-          'Email*': ContactInformation.Email,
-        },
-      },
-      [Member.BankAccountInformation]: {
-        [Member.BankAccountInformation]: {
-          'IBAN*': BankAccountInformation.Iban,
-          'Bank Name*': BankAccountInformation.BankName,
-        },
-      },
-      'Client Email*': Member.Client,
-      'Plan Name': Member.Plan,
-      'Employee Number': Member.EmployeeNumber,
-      'Is Client*': Member.IsClient,
     },
+    [Member.ContactInformation]: {
+      [Member.ContactInformation]: {
+        Phone: ContactInformation.Phone,
+        'Email*': ContactInformation.Email,
+      },
+    },
+    [Member.BankAccountInformation]: {
+      [Member.BankAccountInformation]: {
+        'IBAN*': BankAccountInformation.Iban,
+        'Bank Name*': BankAccountInformation.BankName,
+      },
+    },
+    'Client Email*': Member.Client,
+    'Plan Name': Member.Plan,
+    'Employee Number': Member.EmployeeNumber,
+    'Is Client*': Member.IsClient,
   },
 
   mapper: data => ({

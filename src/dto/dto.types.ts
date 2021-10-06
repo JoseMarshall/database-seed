@@ -191,5 +191,5 @@ export interface IUser {
 
 export interface IDataTransferObject {
   schema: Record<string, any>;
-  mapper: <K>(data: K) => K;
+  mapper?: <K>(data: K) => K;
 }
