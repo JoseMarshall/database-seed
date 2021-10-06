@@ -12,12 +12,12 @@ export function makeFindOneEntity<D extends Document, K>({
   return async (query: Record<string, any>) => {
     const doc = await queryGuard<D>(
       model
-        .findOne(query, options.projection, { session: transaction?.id ? transaction : undefined })
-        ?.populate(options.populateOptions)
+        .findOne(query, options?.projection, { session: transaction?.id ? transaction : undefined })
+        ?.populate(options?.populateOptions)
         .exec()
     );
 
-    return options.formatData
+    return options?.formatData
       ? options.formatData(doc.toObject())
       : (doc.toObject() as unknown as K);
   };
