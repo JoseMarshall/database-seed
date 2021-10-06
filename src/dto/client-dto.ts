@@ -5,15 +5,15 @@ import { IDataTransferObject } from './dto.types';
 
 const clientDTO: IDataTransferObject = {
   schema: {
-    Name: Client.Name,
-    Nif: Client.Nif,
+    'Name*': Client.Name,
+    'Nif*': Client.Nif,
     [Client.ContactInformation]: {
       [Client.ContactInformation]: {
         Phone: ContactInformation.Phone,
-        Email: ContactInformation.Email,
+        'Email*': ContactInformation.Email,
       },
     },
-    Category: Client.Category,
+    'Category*': Client.Category,
   },
   mapper: data => ({
     ...data,

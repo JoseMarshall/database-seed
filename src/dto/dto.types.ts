@@ -5,6 +5,7 @@ import {
   BankAccountInformation,
   Benefit,
   Client,
+  Common,
   ContactInformation,
   Dependent,
   FileUploaded,
@@ -112,6 +113,7 @@ export interface IPlanCategory {
 }
 
 export interface IPlan {
+  [Common.Id]: string;
   [Plan.Name]: string;
   [Plan.Categories]: IPlanCategories[];
   [Plan.Clients]: string[];
@@ -123,6 +125,7 @@ export interface IPlan {
 }
 
 export interface IClient {
+  [Common.Id]: string;
   [Client.Name]: string;
   [Client.Nif]: string;
   [Client.ContactInformation]: ContactInformationDocument;
@@ -146,6 +149,8 @@ export interface ITotalCollections {
 }
 
 export interface IMember {
+  [Common.Id]: string;
+  [Common.MongoId]: string;
   [Member.PersonalInformation]: PersonalInformationDocument;
   [Member.ContactInformation]: ContactInformationDocument;
   [Member.BankAccountInformation]: BankAccountInformationDocument;
@@ -165,6 +170,7 @@ export interface IMember {
 }
 
 export interface IDependent {
+  [Common.Id]: string;
   [Dependent.PersonalInformation]: PersonalInformationDocument;
   [Dependent.ContactInformation]: ContactInformationDocument;
   [Dependent.BankAccountInformation]: BankAccountInformationDocument;
@@ -174,6 +180,7 @@ export interface IDependent {
 }
 
 export interface IUser {
+  [Common.Id]: string;
   [User.Role]: `${UserRoles}`;
   [User.Name]: string;
   [User.Email]: string;
