@@ -1,4 +1,4 @@
-import { Benefit, PlanCategory } from '../constants';
+import { Benefit, PlanCategory } from '../../constants';
 import { IDataTransferObject } from './dto.types';
 
 const planCategoryDTO: IDataTransferObject = {

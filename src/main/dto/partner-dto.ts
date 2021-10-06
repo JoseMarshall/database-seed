@@ -5,7 +5,7 @@ import {
   Partner,
   User,
   UserRoles,
-} from '../constants';
+} from '../../constants';
 import { IDataTransferObject } from './dto.types';
 
 const partnerDTO: IDataTransferObject = {

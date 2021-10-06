@@ -1,4 +1,3 @@
-import { Common, TimeStamps } from '../../../constants';
 import {
   IClient,
   IDependent,
@@ -7,7 +6,7 @@ import {
   IPlan,
   IPlanCategory,
   IUser,
-} from '../../../dto/dto.types';
+} from '../../dto/dto.types';
 
 export interface GetAllEntitiesData<T> {
   data: ReadonlyArray<T>;

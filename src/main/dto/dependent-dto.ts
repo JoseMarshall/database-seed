@@ -4,7 +4,7 @@ import {
   Dependent,
   IdentificationDocument,
   PersonalInformation,
-} from '../constants';
+} from '../../constants';
 import { IDataTransferObject } from './dto.types';
 
 const dependentDTO: IDataTransferObject = {

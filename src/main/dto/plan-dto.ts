@@ -1,4 +1,4 @@
-import { Money, Plan, PlanCategories } from '../constants';
+import { Money, Plan, PlanCategories } from '../../constants';
 import { IDataTransferObject } from './dto.types';
 
 interface IMoney {

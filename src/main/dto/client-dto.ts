@@ -1,6 +1,6 @@
 import { Round } from 'bigint-money';
 
-import { Client, ContactInformation, Currencies, Money } from '../constants';
+import { Client, ContactInformation, Currencies, Money } from '../../constants';
 import { IDataTransferObject } from './dto.types';
 
 const clientDTO: IDataTransferObject = {

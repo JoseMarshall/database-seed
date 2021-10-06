@@ -1,15 +1,15 @@
 import fs from 'fs';
 import { Types as MongooseTypes } from 'mongoose';
 
-import { Client, Common, ContactInformation, Member, Money, Plan } from '../../constants';
+import { Client, Common, ContactInformation, Member, Money, Plan } from '../../../constants';
+import { logger } from '../../../utils';
 import { MemberDTO } from '../../dto';
 import { IClient, IMember, IPlan } from '../../dto/dto.types';
-import { mongoObjectIdGenerator } from '../../main/external/repositories/mongodb/helpers/object-id-generator';
-import uow from '../../main/external/repositories/mongodb/unit-of-work';
-import { IRepository } from '../../main/external/repositories/repository.types';
-import { logger } from '../../utils';
-import { calcTotalPlafond } from '../helpers';
+import { mongoObjectIdGenerator } from '../../external/repositories/mongodb/helpers/object-id-generator';
+import uow from '../../external/repositories/mongodb/unit-of-work';
+import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
+import { calcTotalPlafond } from './helpers';
 
 interface CreateMemberDependencies {
   planRepo: IRepository<IPlan>;

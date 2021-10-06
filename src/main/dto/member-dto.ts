@@ -8,7 +8,7 @@ import {
   Member,
   Money,
   PersonalInformation,
-} from '../constants';
+} from '../../constants';
 import { IDataTransferObject } from './dto.types';
 
 const memberDTO: IDataTransferObject = {

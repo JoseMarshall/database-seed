@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
 import path from 'path';
 
-import startSeeding from '../seeders';
 import { logger } from '../utils/logger';
 import { MongoHelper } from './external/repositories/mongodb/helpers/mongo-helper';
+import startSeeding from './seeders';
 
 const mongoInit = async () => {
   await MongoHelper.connect();

@@ -1,8 +1,8 @@
 import BigMoneyFactory, { Round } from 'bigint-money';
 
-import { Currencies, Money, Plafond } from '../constants';
-import { IPlan } from '../dto/dto.types';
-import { PlafondDocument } from '../main/external/repositories/mongodb/models/model.types';
+import { Currencies, Money, Plafond } from '../../../constants';
+import { IPlan } from '../../dto/dto.types';
+import { PlafondDocument } from '../../external/repositories/mongodb/models/model.types';
 
 interface CalcTotalPlafond {
   plafond: PlafondDocument[];

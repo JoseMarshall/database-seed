@@ -1,12 +1,12 @@
 import * as bcrypt from 'bcrypt';
 import fs from 'fs';
 
-import { Partner, User } from '../../constants';
+import { Partner, User } from '../../../constants';
 import { PartnerDTO } from '../../dto';
 import { IPartner, IUser } from '../../dto/dto.types';
-import uow from '../../main/external/repositories/mongodb/unit-of-work';
-import { IRepository } from '../../main/external/repositories/repository.types';
-import { logger } from '../../utils';
+import { logger } from '../../../utils';
+import uow from '../../external/repositories/mongodb/unit-of-work';
+import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
 
 interface CreatePartnerDependencies {

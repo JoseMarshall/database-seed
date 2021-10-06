@@ -2,8 +2,8 @@ import fs from 'fs';
 
 import { ClientDTO } from '../../dto';
 import { IClient } from '../../dto/dto.types';
-import uow from '../../main/external/repositories/mongodb/unit-of-work';
-import { logger } from '../../utils';
+import { logger } from '../../../utils';
+import uow from '../../external/repositories/mongodb/unit-of-work';
 import { ISeeder } from '../seeders.types';
 
 // eslint-disable-next-line import/prefer-default-export

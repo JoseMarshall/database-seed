@@ -1,12 +1,12 @@
 import MoneyFactory, { Round } from 'bigint-money';
 import fs from 'fs';
 
-import { Currencies, Money, Plan, PlanCategories, PlanCategory } from '../../constants';
+import { Currencies, Money, Plan, PlanCategories, PlanCategory } from '../../../constants';
 import { PlanDTO } from '../../dto';
 import { IPlan, IPlanCategory } from '../../dto/dto.types';
-import uow from '../../main/external/repositories/mongodb/unit-of-work';
-import { IRepository } from '../../main/external/repositories/repository.types';
-import { logger } from '../../utils';
+import { logger } from '../../../utils';
+import uow from '../../external/repositories/mongodb/unit-of-work';
+import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
 
 interface CreatePlanDependencies {

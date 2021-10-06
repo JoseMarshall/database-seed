@@ -1,11 +1,11 @@
 import fs from 'fs';
 
-import { Common, ContactInformation, Dependent, Member } from '../../constants';
+import { Common, ContactInformation, Dependent, Member } from '../../../constants';
 import { DependentDTO } from '../../dto';
 import { IDependent, IMember } from '../../dto/dto.types';
-import uow from '../../main/external/repositories/mongodb/unit-of-work';
-import { IRepository } from '../../main/external/repositories/repository.types';
-import { logger } from '../../utils';
+import { logger } from '../../../utils';
+import uow from '../../external/repositories/mongodb/unit-of-work';
+import { IRepository } from '../../external/repositories/repository.types';
 import { ISeeder } from '../seeders.types';
 
 interface CreateDependentDependencies {
