@@ -92,6 +92,15 @@ export interface TimeStamps {
   updatedAt: Date;
 }
 
+export interface IUser {
+  [Common.Id]: string;
+  [User.Role]: `${UserRoles}`;
+  [User.Name]: string;
+  [User.Email]: string;
+  [User.Password]: string;
+  [User.Phone]: string;
+  [User.Gender]: `${Genders}`;
+}
 export interface IPartner {
   [Partner.Name]: string;
   [Partner.Nif]: string;
@@ -99,7 +108,7 @@ export interface IPartner {
   [Partner.BankAccountInformation]: BankAccountInformationDocument;
   [Partner.Category]: string;
   [Partner.Processes]: string[];
-  [Partner.UserAccount]: string;
+  [Partner.UserAccount]: string | IUser;
   [Partner.TotalProcesses]: number;
   [Partner.TotalAcceptedProcesses]: number;
   [Partner.TotalPendingProcesses]: number;
@@ -107,6 +116,7 @@ export interface IPartner {
 }
 
 export interface IPlanCategory {
+  [Common.Id]: string;
   [PlanCategory.Name]: string;
   [PlanCategory.Exclusions]: string[];
   [PlanCategory.Benefits]: BenefitsDocument[];
@@ -179,17 +189,8 @@ export interface IDependent {
   [Dependent.KinshipDegree]: string;
 }
 
-export interface IUser {
-  [Common.Id]: string;
-  [User.Role]: `${UserRoles}`;
-  [User.Name]: string;
-  [User.Email]: string;
-  [User.Password]: string;
-  [User.Phone]: string;
-  [User.Gender]: `${Genders}`;
-}
-
 export interface IDataTransferObject {
   schema: Record<string, any>;
   mapper?: <K>(data: K) => K;
+  reducer?: (acc: any[], row: any, index?: number) => any;
 }
