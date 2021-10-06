@@ -1,6 +1,5 @@
 import { Document, FilterQuery, UpdateQuery } from 'mongoose';
 
-import { Common } from '../../../../../constants';
 import { queryGuard } from '../helpers';
 import { MakeUpdateOneEntityData } from '../mongoose.types';
 
@@ -15,7 +14,6 @@ export function makeUpdateOneEntity<D extends Document, T>({
       model
         .findOneAndUpdate(query, body as UpdateQuery<unknown>, {
           new: true,
-          projection: { [Common.MongoId]: 0 },
           session: transaction?.id ? transaction : undefined,
         })
         ?.populate(populateOptions)

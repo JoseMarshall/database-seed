@@ -1,6 +1,5 @@
 import { Document } from 'mongoose';
 
-import { Common } from '../../../../../constants';
 import { queryGuard } from '../helpers';
 import { MakeGetOneEntityData } from '../mongoose.types';
 
@@ -13,14 +12,7 @@ export function makeFindOneEntity<D extends Document, K>({
   return async (query: Record<string, any>) => {
     const doc = await queryGuard<D>(
       model
-        .findOne(
-          query,
-          {
-            [Common.MongoId]: 0,
-            ...(options.projection ?? {}),
-          },
-          { session: transaction?.id ? transaction : undefined }
-        )
+        .findOne(query, options.projection, { session: transaction?.id ? transaction : undefined })
         ?.populate(options.populateOptions)
         .exec()
     );

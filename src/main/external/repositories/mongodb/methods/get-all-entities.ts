@@ -1,7 +1,6 @@
 import { Document } from 'mongoose';
 
 import { Common, TimeStamps } from '../../../../../constants';
-import { safeParseInt } from '../../../../../utils';
 import { queryGuard } from '../helpers';
 import { GetAllEntitiesAggregatedData, MakeGetAllEntityData } from '../mongoose.types';
 
@@ -17,8 +16,8 @@ export function makeGetAllEntities<D extends Document, T>({
     includeDeleted?: string;
   }) => {
     const { page, limit, sortBy, includeDeleted, ...filteredQuery } = query;
-    const pageNumber = safeParseInt(page, 10);
-    const docPerPage = safeParseInt(limit ?? '0', 10);
+    const pageNumber = parseInt(page, 10);
+    const docPerPage = parseInt(limit ?? '0', 10);
     const skip = docPerPage > 0 ? docPerPage * (pageNumber - 1) : 0;
 
     const formattedQuery = options.formatQuery ? options.formatQuery(filteredQuery) : filteredQuery;
