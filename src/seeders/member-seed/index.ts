@@ -40,7 +40,9 @@ function makeCreateMember({ planRepo, clientRepo, memberRepo }: CreateMemberDepe
 
     // Increments the totalMembers count in Client Collection
     const client = await clientRepo.update(
-      { [`${Client.ContactInformation}.${ContactInformation.Email}`]: body.client },
+      {
+        [`${Client.ContactInformation}.${ContactInformation.Email}`]: new RegExp(body.client, 'i'),
+      },
       {
         $inc: {
           [Client.TotalMembers]: 1,
@@ -78,16 +80,18 @@ export async function memberSeed({ reader, path }: ISeeder<IMember>) {
       map: MemberDTO.schema,
     });
 
-    const members = rows.map(MemberDTO.mapper);
+    if (rows.length) {
+      const members = rows.map(MemberDTO.mapper);
 
-    const planRepo = unitOfWork.makePlanRepository();
-    const memberRepo = unitOfWork.makeMemberRepository();
-    const clientRepo = unitOfWork.makeClientRepository();
+      const planRepo = unitOfWork.makePlanRepository();
+      const memberRepo = unitOfWork.makeMemberRepository();
+      const clientRepo = unitOfWork.makeClientRepository();
 
-    const result = await Promise.all(
-      members.flatMap(makeCreateMember({ clientRepo, planRepo, memberRepo }))
-    );
-    logger.info(`MEMBER_SEED SUCCESS Created ${result.length} of ${rows.length}`);
+      const result = await Promise.all(
+        members.flatMap(makeCreateMember({ clientRepo, planRepo, memberRepo }))
+      );
+      logger.info(`MEMBER_SEED SUCCESS ${result.length} of ${rows.length}`);
+    }
   } catch (error) {
     logger.error(error);
   }
