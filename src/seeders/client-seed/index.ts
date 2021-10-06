@@ -14,13 +14,13 @@ export async function clientSeed({ reader, path }: ISeeder<IClient>) {
       map: ClientDTO.schema,
     });
 
-    const clients = rows.map(ClientDTO.mapper);
+    if (rows.length) {
+      const clients = rows.map(ClientDTO.mapper);
+      const repo = unitOfWork.makeClientRepository();
+      const result = await repo.add(clients);
 
-    const repo = unitOfWork.makeClientRepository();
-
-    const result = await repo.add(clients);
-
-    logger.info(`CLIENT_SEED SUCCESS Created ${result.length} of ${rows.length}`);
+      logger.info(`CLIENT_SEED SUCCESS Created ${result.length} of ${rows.length}`);
+    }
   } catch (error) {
     logger.error(error);
   }
