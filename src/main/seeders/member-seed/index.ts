@@ -26,12 +26,22 @@ function makeCreateMember({ planRepo, clientRepo, memberRepo }: CreateMemberDepe
     if (body.plan) {
       fetchedPlan = await planRepo.findOne({ [Plan.Name]: new RegExp(body.plan, 'i') });
 
+      const fetchedClient = await clientRepo.findOne({
+        [`${Client.ContactInformation}.${ContactInformation.Email}`]: new RegExp(body.client, 'i'),
+      });
+
       // Increments the totalMembers count in Plan Collection
       await planRepo.update(
         { [Common.MongoId]: MongooseTypes.ObjectId(fetchedPlan.id) },
         {
-          $inc: { [Plan.TotalMembers]: 1 },
-          $push: { [Plan.Members]: memberId },
+          $inc: {
+            [Plan.TotalMembers]: 1,
+            ...(body.isClient ? { [Plan.TotalClients]: 1 } : {}),
+          },
+          $push: {
+            [Plan.Members]: memberId,
+            ...(body.isClient ? { [Plan.Clients]: fetchedClient.id } : {}),
+          },
         }
       );
     }
@@ -50,6 +60,9 @@ function makeCreateMember({ planRepo, clientRepo, memberRepo }: CreateMemberDepe
           [`${Client.Plafond}.${Money.Value}`]: Number(totalPlafond.toJSON()[0]),
         },
         $push: { [Client.Members]: memberId },
+        ...(body.isClient
+          ? { $set: { [Client.Plans]: [MongooseTypes.ObjectId(fetchedPlan.id)] } }
+          : {}),
       }
     );
 

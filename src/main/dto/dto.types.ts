@@ -177,6 +177,7 @@ export interface IMember {
   [Member.TotalAcceptedProcesses]: number;
   [Member.TotalPendingProcesses]: number;
   [Member.TotalRejectedProcesses]: number;
+  [Member.IsClient]: boolean;
 }
 
 export interface IDependent {

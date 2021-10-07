@@ -28,7 +28,7 @@ const start = async () => {
     logger.info(
       {
         Completed:
-          'Thanks for using database-seed-met-care, in case of fails check the reports for more details',
+          'Thanks for using database-seed, in case of fails check the reports for more details',
       },
       'Completed!!!'
     );
